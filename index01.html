@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>記録</title>
+	<link rel="stylesheet" href="css/sample.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+	<header>
+		<h1>子供成長記録</h1>
+	</header>
+	<main>
+		<!-- 年、月、日の選択肢を入れる -->
+		<div>
+			<label>年：</label>
+			<select id="year" name="year"></select>
+		</div>
+		<div>
+			<label>月：</label>
+			<select id="month" name="month"></select>
+		</div>
+		<div>
+			<label>日：</label>
+			<select id="date" name="date"></select>
+		</div>
+
+		<!-- 身長、体重の入力欄と保存ボタン、リセットボタンを入れる -->
+		<div>
+			<label for="sin">身長：</label>
+			<input type="number" id="sin">
+		</div>
+		<div>
+			<label for="tai">体重：</label>
+			<input type="number" id="tai">
+		</div>
+		<div>
+			<button type="submit" id="save">記録</button>
+			<button type="submit" id="clear">削除</button>
+			<button type="submit" id="graph">表示</button>
+		</div>
+
+		<!-- 記録の一覧を表示するテーブルを作成する -->
+		<table>
+			<thead>
+				<tr>
+					<th>年</th>
+					<th>月</th>
+					<th>日</th>
+					<th>身長</th>
+					<th>体重</th>
+				</tr>
+			</thead>
+			<tbody id="memo-list"></tbody>
+		</table>
+	</main>
+	<footer>
+		<small>G's</small>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		年、月、日の選択肢を動的に生成する
+			(function () {
+				const isLeapYear = year => (year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0);
+				const today = new Date();
+				const thisYear = today.getFullYear();
+				const thisMonth = today.getMonth() + 1;
+				const thisDate = today.getDate();
+				const datesOfFebruary = isLeapYear(thisYear) ? 29 : 28;
+				const datesOfYear = [31, datesOfFebruary, 31,const ctx = document.getElementById('myChart').getContext('2d')];
+			}
+
+		
+
+		const chart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: '身長(cm)',
+						data: sinData,
+						borderColor: 'rgba(255, 99, 132, 1)',
+						backgroundColor: 'rgba(255, 99, 132, 0.2)',
+						fill: false,
+					}, {
+						label: '体重(kg)',
+						data: taiData,
+						borderColor: 'rgba(54, 162, 235, 1)',
+						backgroundColor: 'rgba(54, 162, 235, 0.2)',
+						fill: false,
+					}]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
+				}
+			});
+		);
+
+	</script>
+</body>
+
+</html>

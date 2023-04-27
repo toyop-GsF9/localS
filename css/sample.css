@@ -1,0 +1,157 @@
+/* body{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size: 32px;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+main{
+    border-bottom:1px solid #ccc;
+    position:relative;
+}
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+p{
+    font-size:200%;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:200px;
+}
+ul{
+    padding: 0;
+    border-top: 1px solid #000000;
+    display:table;  /* 定義 */
+/* table-layout: fixed;
+    width:100%;
+}
+li{
+    list-style-type:none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display:table-cell;  /* 定義 */
+/* cursor: pointer;
+}
+li:hover{
+    background: #0066CC;
+    color:#fff;
+}
+input,textarea{
+    margin: 3%;
+    width: 95%;
+    font-size:80%;
+    box-shadow: 3px 3px 3px 3px #555;
+}
+input{
+    height: 30px;
+}
+textarea{
+    height: 230px;
+} */
+
+/* リセットCSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全体のレイアウト */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+/* ヘッダー */
+header {
+    background-color: #2196f3;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* メインコンテンツ */
+main {
+    margin: 2rem auto;
+    max-width: 960px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* 日付、身長、体重の入力項目 */
+main select,
+main input[type="number"],
+main button {
+    display: block;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 0.25rem;
+}
+
+/* テーブル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+table th,
+table td {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+table th {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+table td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* テーブル内の削除ボタン */
+#memo-list button {
+    background-color: #ff4081;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#memo-list button:hover {
+    background-color: #e91e63;
+}
+
+/* フッター */
+footer {
+    background-color: #ccc;
+    color: #fff;
+    padding: 0.5rem;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}

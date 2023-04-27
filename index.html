@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>記録</title>
+	<link rel="stylesheet" href="css/sample.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+	<header>
+		<h1>子供成長記録</h1>
+	</header>
+
+	<main>
+		<p>西暦</p>
+		<select id="year" name="year"></select>
+		<p>月</p>
+		<select id="month" name="month"></select>
+		<p>日</p>
+		<select id="date" name="date"></select>
+		<p>身長</p>
+		<input type="number" id="sin">
+		<p>体重</p>
+		<input type="number" id="tai">
+		<button type="submit" id="save">記録</button>
+		<button type="submit" id="clear">削除</button>
+		<button type="submit" id="graph">表示</button>
+
+
+		<table>
+			<thead>
+				<tr>
+					<th>年</th>
+					<th>月</th>
+					<th>日</th>
+					<th>身長</th>
+					<th>体重</th>
+				</tr>
+			</thead>
+			<tbody id="memo-list">
+			</tbody>
+		</table>
+
+
+
+
+	</main>
+
+	<footer>
+		<small>G's</small>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+	<script>
+		(function () {
+			const isLeapYear = year => (year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0);
+			const today = new Date();
+			const thisYear = today.getFullYear();
+			const thisMonth = today.getMonth() + 1;
+			const thisDate = today.getDate();
+			const datesOfFebruary = isLeapYear(year) ? 29 : 28;
+			const datesOfYear = [31, datesOfFebruary, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			const createOption = (id, startNum, endNum, current) => {
+				const selectDom = document.getElementById(id);
+				let optionDom = '';
+				for (let i = startNum; i <= endNum; i++) {
+					if (i === current) {
+						option = '<option value="' + i + '" selected>' + i + '</option>';
+					} else {
+						option = '<option value="' + i + '">' + i + '</option>';
+					}
+					optionDom += option;
+				}
+				selectDom.insertAdjacentHTML('beforeend', optionDom);
+			}
+			createOption('year', 2021, thisYear, thisYear);
+			createOption('month', 1, 12, thisMonth);
+			createOption('date', 1, datesOfYear[thisMonth - 1], thisDate);
+		})()
+
+		$("#save").on("click", function () {
+			let year = $("#year").val();
+			const month = $("#month").val();
+			const date = $("#date").val();
+			const sin = $("#sin").val();
+			const tai = $("#tai").val();
+
+			const data = {
+				year: year,
+				month: month,
+				date: date,
+				sin: sin,
+				tai: tai
+			};
+			console.log(data);
+
+			const jsonData = JSON.stringify(data);
+			console.log(jsonData);
+
+			// 異なるキー名で保存
+			let i = 1;
+			while (localStorage.getItem(`memo${i}`) !== null) {
+				i++;
+			}
+			localStorage.setItem(`memo${i}`, jsonData);
+		});
+
+		$("#clear").on("click", function () {
+			localStorage.clear();
+			$("#year").val("");
+			$("#month").val("");
+			$("#date").val("");
+			$("#sin").val("");
+			$("#tai").val("");
+			const row = document.getElementById("memo-list");
+
+			// 「リストを削除」ボタンがクリックされた時の処理
+
+			row.innerHTML = "";
+
+
+
+		}
+
+
+
+		);
+
+		// memoList.addEventListener("click", function (event) {
+		// 	if (event.target.classList.contains("#clear")) {
+		// 		const index = event.target.getAttribute("data-index");
+		// 		localStorage.removeItem(`memo${index}`);
+		// 		event.target.closest("tr").remove();
+		// 	}
+		// });
+
+
+		$("#graph").on("click", function () {
+			// すべてのデータを取得する
+			const memoList = document.getElementById("memo-list");
+			for (let i = 1; i <= localStorage.length; i++) {
+				const memo = localStorage.getItem(`memo${i}`);
+				if (memo !== null) {
+					const data = JSON.parse(memo);
+					const row = document.createElement("tr");
+					row.innerHTML = `
+					<td>${data.year}</td>
+					<td>${data.month}</td>
+					<td>${data.date}</td>
+					<td>${data.sin}</td>
+					<td>${data.tai}</td>`;
+					memoList.appendChild(row);
+				}
+			}
+
+
+
+
+
+
+
+		});
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+
+</html>

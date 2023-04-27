@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>手帳</title>
+	<link rel="stylesheet" href="css/sample.css">
+
+
+</head>
+
+<body>
+	<header>
+		<h1>手帳</h1>
+	</header>
+
+	<main>
+		<select id="year" name="year">西暦</select>
+		<select id="month" name="month">月</select>
+		<select id="date" name="date"></select>
+		<p>kkkk</p>
+		<input type="number" id="sin">
+		<p>aaa</p>
+		<input type="number" id="tai">
+		<button type="submit" id="save">記録</button>
+		<button type="submit" id="clear">削除</button>
+		<button type="submit" id="graph" onclick="window.open('memo03.html', '_blank')">表示</button>
+		<canvas id="stage"></canvas>
+
+
+	</main>
+
+	<footer>
+		<small>G's</small>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+	<script>
+		(function () {
+			const isLeapYear = year => (year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0);
+			const today = new Date();
+			const thisYear = today.getFullYear();
+			const thisMonth = today.getMonth() + 1;
+			const thisDate = today.getDate();
+			const datesOfFebruary = isLeapYear(year) ? 29 : 28;
+			const datesOfYear = [31, datesOfFebruary, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			const createOption = (id, startNum, endNum, current) => {
+				const selectDom = document.getElementById(id);
+				let optionDom = '';
+				for (let i = startNum; i <= endNum; i++) {
+					if (i === current) {
+						option = '<option value="' + i + '" selected>' + i + '</option>';
+					} else {
+						option = '<option value="' + i + '">' + i + '</option>';
+					}
+					optionDom += option;
+				}
+				selectDom.insertAdjacentHTML('beforeend', optionDom);
+			}
+			createOption('year', 1900, thisYear, thisYear);
+			createOption('month', 1, 12, thisMonth);
+			createOption('date', 1, datesOfYear[thisMonth - 1], thisDate);
+		})()
+
+
+
+		$("#save").on("click", function () {
+			const year = $("#year").val();
+			const month = $("#month").val();
+			const date = $("#date").val();
+			const sin = $("#sin").val();
+			const tai = $("#tai").val();
+
+			const data = {
+				year: year,
+				month: month,
+				date: date,
+				sin: sin,
+				tai: tai
+			};
+			console.log(data);
+
+			const jsonData = JSON.stringify(data);
+			console.log(jsonData);
+			localStorage.setItem("memo", jsonData);
+
+		});
+
+		$("#clear").on("click", function () {
+			localStorage.removeItem("memo");
+			$("#year").val("");
+			$("#month").val("");
+			$("#date").val("");
+			$("#sin").val("");
+			$("#tai").val("");
+
+		});
+
+
+
+		if (localStorage.getItem("memo")) {
+			const jsonData = localStorage.getItem("memo");
+			const data = JSON.parse(jsonData);
+			console.log(data);
+			$("#year").val(data.year);
+			$("#date").val(data.date);
+			$("#month").val(data.month);
+			$("#sin").val(data.sin);
+			$("#tai").val(data.tai);
+
+		}
+
+
+	</script>
+
+</body>
+
+</html>
